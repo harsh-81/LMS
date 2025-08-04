@@ -1,5 +1,6 @@
 import cron from "node-cron";
-import {User, user} from "../models/userModel.js";
+import {User} from "../models/userModel.js";
+// import {User, user} from "../models/userModel.js"; pehle aisi thi upar wali line
 
 export const removeUnverifiedAccounts = ()=> {
     cron.schedule("*/5 * * * *", async()=>{

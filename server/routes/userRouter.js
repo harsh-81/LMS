@@ -3,7 +3,7 @@ import {
     getAllUsers,
     registerNewAdmin,
 } from "../controllers/userController.js";
-import { isAuthenticated, isAuthorized } from "../middlewares/authMiddleware";
+import { isAuthenticated, isAuthorized } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 

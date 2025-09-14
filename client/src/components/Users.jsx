@@ -7,7 +7,7 @@ const Users = () => {
 
   const formatDate = (timeStamp) => {
     const date = new Date(timeStamp);
-    const formattedDate = `${Sting(date.getDate()).padStart(2, 0)}-${String(
+    const formattedDate = `${String(date.getDate()).padStart(2, "0")}-${String(
       date.getMonth() + 1
     ).padStart(2, "0")}-${String(date.getFullYear())}`;
 
@@ -55,7 +55,7 @@ const Users = () => {
                       <td className="px-4 py-2">{user.name}</td>
                       <td className="px-4 py-2">{user.email}</td>
                       <td className="px-4 py-2">{user.role}</td>
-                      <td className="px-4 py-2">{user?.borrowedBooks.legnth}</td>
+                      <td className="px-4 py-2">{user?.borrowedBooks.length}</td>
                       <td className="px-4 py-2">{formatDate(user.createdAt)}</td>
 
                       </tr>

@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../assets/black-logo.png";
 import logo_with_title from "../assets/logo-with-title.png";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom"
 import { toast } from "react-toastify";
-import { resetAuthSlice } from "../store/slices/authSlice";
+import { resetAuthSlice, register } from "../store/slices/authSlice";
+import { Navigate, Link } from "react-router-dom";
+
 
 const Register = () => {
-  const [name, getName] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -29,14 +31,14 @@ const Register = () => {
   useEffect(()=>{
     if(message){
       toast.success(message);
-      dispatch(resetAuthSlice);
+      dispatch(resetAuthSlice());
       navigateTo(`/otp-verification/${email}`)
     }
     if(error){
       toast.error(error);
       dispatch(resetAuthSlice());
     }
-  }, [dispatch, isAuthenticated, error, loading]
+  }, [dispatch, isAuthenticated, error, loading, email]
 );
 
 if(isAuthenticated){
@@ -97,7 +99,7 @@ if(isAuthenticated){
             <Link to="/login" className="text-sm text-gray-500 hover:underline">Sign In</Link>
           </p>
         </div>
-        <button type="submit" className="border-2 mt-5 border-black w-full font-semibold bg-black text-white py-2 rounded-lg hover: bg-white hover:text-black transition">SIGN UP</button>
+        <button type="submit" className="border-2 mt-5 border-black w-full font-semibold bg-black text-white py-2 rounded-lg hover:bg-white hover:text-black transition">SIGN UP</button>
       </form>
     </div>
     </div>

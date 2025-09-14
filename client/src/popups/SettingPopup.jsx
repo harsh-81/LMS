@@ -14,7 +14,7 @@ const SettingPopup = () => {
   const {loading} = useSelector((state) => state.auth);
   const handleUpdatePassword = (e) => {
     e.preventDefault();
-    const data = new Formdata();
+    const data = new FormData();
     data.append("currentPassword", currentPassword)
     data.append("newPassword", newPassword);
     data.append("confirmNewPassword", confirmNewPassword);
@@ -50,7 +50,7 @@ const SettingPopup = () => {
                      type="password"
                      value={currentPassword}
                      onChange={(e) => setCurrentPassword(e.target.value)}
-                     placeHolder="Current Password"
+                     placeholder="Current Password"
                      className="w-full px-4 py-2 border border-gray-300 rounded-md "
                    />
                  </div><div className="mb-4 sm:flex gap-4 items-center">
@@ -59,7 +59,7 @@ const SettingPopup = () => {
                      type="password"
                      value={newPassword}
                      onChange={(e) => setNewPassword(e.target.value)}
-                     placeHolder="Enter New Password"
+                     placeholder="Enter New Password"
                      className="w-full px-4 py-2 border border-gray-300 rounded-md "
                    />
                  </div>
@@ -69,7 +69,7 @@ const SettingPopup = () => {
                      type="password"
                      value={confirmNewPassword}
                      onChange={(e) => setConfirmNewPassword(e.target.value)}
-                     placeHolder="Confirm New Password"
+                     placeholder="Confirm New Password"
                      className="w-full px-4 py-2 border border-gray-300 rounded-md"
                    />
                  </div>

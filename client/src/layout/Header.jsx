@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import settingIcon from "../assets/setting.png";
 import userIcon from "../assets/user.png";
 import { useDispatch, useSelector } from "react-redux";
+import { toggleSettingPopup } from "../store/slices/popUpSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -19,13 +20,13 @@ const Header = () => {
       const ampm = now.getHours() >= 12 ? "PM" : "AM";
       setCurrentTime(`${hours}:${minutes}:${ampm}`);
 
-      const options = { month: "short", dat: "numeric", year: "numeric" };
+      const options = { month: "short", day: "numeric", year: "numeric" };
       setCurrentDate(now.toLocaleDateString("en-US", options));
     };
 
     updateDateTime();
 
-    const intervalid = setInterval(updateDateTime, 1000);
+    const intervalId = setInterval(updateDateTime, 1000);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -48,7 +49,7 @@ const Header = () => {
         </div>
         {/* {RIGHT SIDE} */}
         <div className="hidden md:flex items-center gap-2">
-          <div className="flex flex-col text-sm lg-text-base items-end font-semibold">
+          <div className="flex flex-col text-sm lg:text-base items-end font-semibold">
             <span>{currentTime}</span>
             <span>{currentDate}</span>
           </div>

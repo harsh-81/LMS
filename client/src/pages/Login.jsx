@@ -19,9 +19,9 @@ const Login = () => {
 
   const handleLogin = (e)=>{
     e.preventDefault();
-    const date = new FormData();
-    data.append("email", email)
-    data.append("password", password)
+    const data = new FormData();
+    data.append("email", email);
+    data.append("password", password);
     dispatch(login(data))
   }
 
@@ -81,18 +81,18 @@ const Login = () => {
                   <div className="block md:hidden font-semibold mt-5">
                     <p>New to our platform? <Link to={"/register"} className="text-sm text-gray-500 hover:underline">Sign Up</Link></p>
                   </div>
-                  <button type="submit" className="border-2 mt-5 border-black w-full font-semibold bg-black text-white py-2 rounded-lg hover: bg-white hover:text-black transition">SIGN IN</button>
+                  <button type="submit" className="border-2 mt-5 border-black w-full font-semibold bg-black text-white py-2 rounded-lg hover:bg-white hover:text-black transition">SIGN IN</button>
                 </form>
               </div>
             </div>
             {/* {RIGHT SIDE} */}
-            <div className="hidden w-full md:w-1/2 bg-back text-white md:flex flex-col items-center justify-center p-8 rounded-tl-[80px] rounded-bl-[80px]">
+            <div className="hidden w-full md:w-1/2 bg-black text-white md:flex flex-col items-center justify-center p-8 rounded-tl-[80px] rounded-bl-[80px]">
               <div className="text-center h-[400px]">
                 <div className="flex justify-center mb-12">  
                   <img src={logo_with_title} alt="logo" className="mb-12 h-44 w-auto"/>
                 </div>
                 <p className="text-gray-300 mb-12">New to our platform? Sign up now.</p>
-                <Link to={"/register"} className="border-2 mt-5 border-white px-8 w-full font-semibold bg-white text-black py-2 rounded-lg hover: bg-black hover:text-white transition">SIGN UP</Link>
+                <Link to={"/register"} className="border-2 mt-5 border-white px-8 w-full font-semibold bg-white text-black py-2 rounded-lg hover:bg-black hover:text-white transition">SIGN UP</Link>
               </div>
             </div>
           </div>

@@ -1,3 +1,4 @@
+import { User } from "../models/userModel.js";
 import { catchAsyncErrors } from "./catchAsyncErrors.js";
 import ErrorHandler, { errorMiddleware } from "./errorMiddlewares.js";
 import jwt from "jsonwebtoken"

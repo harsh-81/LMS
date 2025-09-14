@@ -115,7 +115,7 @@ const authSlice = createSlice({
         state.error = action.payload;
     },
 
-    updatePasswordRequest(state, action){
+    updatePasswordRequest(state){
         state.loading = true;
         state.error = null;
         state.message = null;
@@ -125,7 +125,7 @@ const authSlice = createSlice({
         state.message = action.payload;
         
     },
-    updatePasswordFailed(state){
+    updatePasswordFailed(state, action){
         state.loading = false;
         state.error = action.payload;
     },
@@ -168,7 +168,7 @@ export const otpVerification = (email, otp) => async (dispatch) => {
 };
 
 export const register = (data) => async (dispatch) => {
-  dispatch(authSlice.actions.registerRequest);
+  dispatch(authSlice.actions.registerRequest());
   await axios
     .post("http://localhost:4000/api/v1/auth/register", data, {
       withCredentials: true,
@@ -212,7 +212,6 @@ export const logout = () => async (dispatch) => {
   await axios
     .get(
       "http://localhost:4000/api/v1/auth/logout",
-        data,
       {
         withCredentials: true,
       }
@@ -228,28 +227,50 @@ export const logout = () => async (dispatch) => {
     });
 };
 
+// export const getUser = () => async (dispatch) => {
+//   dispatch(authSlice.actions.getUserRequest());
+//   await axios
+//     .get(
+//       "http://localhost:4000/api/v1/auth/me",
+//       {
+//         withCredentials: true,
+//       }
+//     )
+//     .then((res) => {
+//       dispatch(authSlice.actions.getUserSuccess(res.data));
+//       dispatch(authSlice.actions.resetAuthSlice());
+//     })
+//     .catch((error) => {
+//       dispatch(
+//         authSlice.actions.getUserFailed(error.response.data.message)
+//       );
+//     });
+// };
+
 export const getUser = () => async (dispatch) => {
   dispatch(authSlice.actions.getUserRequest());
+
+  const token = localStorage.getItem("token"); // Or get it from cookies/Redux store
+
   await axios
-    .get(
-      "http://localhost:4000/api/v1/auth/me",
-        data,
-      {
-        withCredentials: true,
-      }
-    )
+    .get("http://localhost:4000/api/v1/auth/me", {
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+    })
     .then((res) => {
-      dispatch(authSlice.actions.getUserSuccess(res.data.message));
+      dispatch(authSlice.actions.getUserSuccess(res.data));
       dispatch(authSlice.actions.resetAuthSlice());
     })
     .catch((error) => {
-      dispatch(
-        authSlice.actions.getUserFailed(error.response.data.message)
-      );
+      dispatch(authSlice.actions.getUserFailed(error.response?.data?.message || "Unable to fetch user"));
     });
 };
 
-export const forgotPassword = (data) => async (dispatch) => {
+
+export const forgotPassword = (email) => async (dispatch) => {
   dispatch(authSlice.actions.forgotPasswordRequest());
   await axios
     .post(

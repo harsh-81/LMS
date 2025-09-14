@@ -3,7 +3,10 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import logo from "../assets/black-logo.png";
 import logo_with_title from "../assets/logo-with-title.png";
 import { toast } from "react-toastify";
-import { resetAuthSlice } from "../store/slices/authSlice";
+import { resetAuthSlice, resetPassword } from "../store/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+
+
 
 
 const ResetPassword = () => {
@@ -23,7 +26,7 @@ const ResetPassword = () => {
     const formData = new FormData();
     formData.append("password", password)
     formData.append("confirmPassword", confirmPassword);
-    dispatch(ResetPassword(formData, token));
+    dispatch(resetPassword(formData, token));
   };
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const ResetPassword = () => {
     }
 
 
-  return 
+  return (
   <>
     <div className="flex flex-col justify-center md:flex-row h-screen">
       {/* {LEFT SECTION} */}
@@ -113,7 +116,8 @@ const ResetPassword = () => {
               </div>
             </div>
     </div>
-  </>;
+  </>
+  );
 };
 
 export default ResetPassword;

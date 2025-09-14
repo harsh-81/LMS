@@ -9,6 +9,9 @@ import { calculateFine } from "../utils/fineCalculator.js";
 export const recordBorrowedBook = catchAsyncErrors(
   async (req, res, next) => {
     const {id} = req.params;
+    if (!req.body || !req.body.email) {
+      return next(new ErrorHandler("Email is required.", 400));
+    }
     const {email} = req.body;
 
     const book = await Book.findById(id);
@@ -57,19 +60,22 @@ export const recordBorrowedBook = catchAsyncErrors(
 
 export const returnBorrowBook = catchAsyncErrors(async (req, res, next) => {
     const {bookId} = req.params;
+    if (!req.body || !req.body.email) {
+    return next(new ErrorHandler("Email is required.", 400));
+    }
     const {email} = req.body;
     const book = await Book.findById(bookId);
     if(!book){
         return next(new ErrorHandler("Book not found.", 404));
     }
-    const user = await UserActivation.findOne({ email, accountVerified: true });
+    const user = await User.findOne({ email, accountVerified: true });
     if(!user){
         return next(new ErrorHandler("User not found.", 404));
     }
     const borrowedBooks = user.borrowedBooks.find(
         (b) => b.bookId.toString() === bookId && b.returned ===false
     );
-    if(!borrowedBook){
+    if(!borrowedBooks){
         return next(new ErrorHandler("You have not borrowed this book.", 400));
     }
     borrowedBooks.returned = true;
@@ -103,15 +109,20 @@ export const returnBorrowBook = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const borrowedBooks = catchAsyncErrors(async (req, res, next) => {
-    const {borrowedBooks} = await Borrow.find();
+    const {borrowedBooks} = req.user;
     res.status(200).json({
         success: true,
         borrowedBooks,
     });
-
 });
 
 export const getBorrowedBooksForAdmin = catchAsyncErrors(
-  async (req, res, next) => {}
+  async (req, res, next) => {
+    const borrowedBooks = await Borrow.find();
+    res.status(200).json({
+        success: true,
+        borrowedBooks,
+    });
+  }
 );
 

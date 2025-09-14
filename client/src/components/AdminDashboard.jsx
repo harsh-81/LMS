@@ -44,22 +44,45 @@ const AdminDashboard = () => {
   const [totalBorrowedBooks, setTotalBorrowedBooks] = useState(0);
   const [totalReturnedBooks, setTotalReturnedBooks] = useState(0);
 
+  // useEffect(() => {
+  //   let numberOfUsers = users.filter((user) => user.role === "User");
+  //   let numberOfAdmins = users.filter((user) => user.role === "Admin");
+  //   setTotalUsers(numberOfUsers.length);
+  //   setTotalAdmin(numberOfAdmins.length);
+
+  //   let numberOfTotalBorrowedBooks = allBorrowedBooks.filter(
+  //     (book) => book.returnDate === null
+  //   );
+  //   let numberOfTotalReturnedBooks = allBorrowedBooks.filter(
+  //     (book) => book.returnDate !== null
+  //   );
+
+  //   setTotalBorrowedBooks(numberOfTotalBorrowedBooks.length);
+  //   setTotalReturnedBooks(numberOfTotalReturnedBooks.length);
+  // }, [users, allBorrowedBooks]);
+
   useEffect(() => {
-    let numberOfUsers = users.filter((user) => user.role === "User");
-    let numberOfAdmins = users.filter((user) => user.role === "Admin");
-    setTotalUsers(numberOfUsers.length);
-    setTotalAdmin(numberOfAdmins.length);
+  const numberOfUsers = Array.isArray(users)
+    ? users.filter((user) => user.role === "User")
+    : [];
+  const numberOfAdmins = Array.isArray(users)
+    ? users.filter((user) => user.role === "Admin")
+    : [];
 
-    let numberOfTotalBorrowedBooks = allBorrowedBooks.filter(
-      (book) => book.returnDate === null
-    );
-    let numberOfTotalReturnedBooks = allBorrowedBooks.filter(
-      (book) => book.returnDate !== null
-    );
+  setTotalUsers(numberOfUsers.length);
+  setTotalAdmin(numberOfAdmins.length);
 
-    setTotalBorrowedBooks(numberOfTotalBorrowedBooks.length);
-    setTotalReturnedBooks(numberOfTotalReturnedBooks.length);
-  }, [users, allBorrowedBooks]);
+  const numberOfTotalBorrowedBooks = Array.isArray(allBorrowedBooks)
+    ? allBorrowedBooks.filter((book) => book.returnDate === null)
+    : [];
+  const numberOfTotalReturnedBooks = Array.isArray(allBorrowedBooks)
+    ? allBorrowedBooks.filter((book) => book.returnDate !== null)
+    : [];
+
+  setTotalBorrowedBooks(numberOfTotalBorrowedBooks.length);
+  setTotalReturnedBooks(numberOfTotalReturnedBooks.length);
+}, [users, allBorrowedBooks]);
+
 
   const data = {
     labels: ["Total Borrowed Books", "Total Returned Books"],

@@ -1,3 +1,110 @@
+// import React, { useEffect, useState } from "react";
+// import logo from "../assets/black-logo.png";
+// import logo_with_title from "../assets/logo-with-title.png";
+// import { useDispatch, useSelector } from "react-redux";
+// import { forgotPassword, resetAuthSlice } from "../store/slices/authSlice";
+// import { toast } from "react-toastify";
+// import { Link, Navigate } from "react-router-dom";
+
+// const ForgotPassword = () => {
+//   const [email, setEmail] = useState("");
+
+//   const dispatch = useDispatch();
+//   const { loading, error, message, user, isAuthenticated } = useSelector(
+//     (state) => state.auth
+//   );
+
+//   const handleForgotPassword = (e) => {
+//     e.preventDefault();
+//     dispatch(forgotPassword(email));
+//   };
+
+//   useEffect(() => {
+//     if(message){
+//       toast.success(message);
+//       dispatch(resetAuthSlice());
+//     }
+//     if (error) {
+//       toast.error(error);
+//       dispatch(resetAuthSlice());
+//     }
+//   }, [dispatch, isAuthenticated, error, loading]);
+
+//   if (isAuthenticated) {
+//     return <Navigate to={"/"} />;
+//   }
+
+//   return(
+//   <>
+//     <div>
+//       {/* {LEFT SECTION } */}
+//       <div
+//         className="hidden w-full md:w-1/2 bg-black text-white md:flex flex-col items-center justify-center
+//       p-8 rounded-tr-[80px] rounded-br-[80px]"
+//       >
+//         <div className="text-center h-[450px]">
+//           <div className="flex justify-center mb-12">
+//             <img
+//               src={logo_with_title}
+//               alt="logo"
+//               className="mb-12 h-44 w-auto"
+//             />
+//           </div>
+//           <h3 className="text-gray-300 mb-12 max-w-[320px] mx-auto text-3xl font-medium leading-10">
+//             "Your premier digital library for borrowing and reading books"
+//           </h3>
+//         </div>
+//       </div>
+//       {/* {RIGHT SECTION} */}
+//       <div className="w-full md:w-1/2 flex items-center justify-center bg-white p-8 relative">
+//         <Link
+//           to={"/login"}
+//           className="border-2 border-black rounded-3xl font-bold w-52 py-2 px-4 fixed top-10 -left-28 
+//           hover:bg-black hover:text-white transition duration-300 text-end"
+//         >
+//           Back
+//         </Link>
+//         <div className="w-full max-w-sm">
+//           <div className="flex justify-center mb-12">
+//             <div className="rounded-full flex items-center justify-center">
+//               <img src={logo} alt="logo" className="h-24 w-auto" />
+//             </div>
+//           </div>
+//           <h1 className="text-4xl font-medium text-center mb-5 overflow-hidden">
+//             Forgot Password
+//           </h1>
+//           <p className="text-gray-800 text-center mb-12">
+//             Please enter your email
+//           </p>
+//           <form onSubmit={handleForgotPassword}>
+//             <div className="mb-4">
+//               <input
+//                 type="email"
+//                 required
+//                 value={email}
+//                 onChange={(e) => setEmail(e.target.value)}
+//                 placeholder="Email"
+//                 className="w-full px-4 py-3 border border-black rounded-md focus:outline-none"
+//               />
+//             </div>
+//             <button
+//               type="submit"
+//               className="border-2 mt-5 border-black w-full font-semibold bg-black text-white py-2 rounded-lg hover:bg-white hover:text-black transition"
+//               disabled={loading ? true : false}
+//             >
+//               RESET PASSWORD
+//             </button>
+//           </form>
+//         </div>
+//       </div>
+//     </div>
+//   </>
+//   );
+// };
+
+// export default ForgotPassword;
+
+
 import React, { useEffect, useState } from "react";
 import logo from "../assets/black-logo.png";
 import logo_with_title from "../assets/logo-with-title.png";
@@ -8,9 +115,8 @@ import { Link, Navigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-
   const dispatch = useDispatch();
-  const { loading, error, message, user, isAuthenticated } = useSelector(
+  const { loading, error, message, isAuthenticated } = useSelector(
     (state) => state.auth
   );
 
@@ -20,7 +126,7 @@ const ForgotPassword = () => {
   };
 
   useEffect(() => {
-    if(message){
+    if (message) {
       toast.success(message);
       dispatch(resetAuthSlice());
     }
@@ -28,20 +134,26 @@ const ForgotPassword = () => {
       toast.error(error);
       dispatch(resetAuthSlice());
     }
-  }, [dispatch, isAuthenticated, error, loading]);
+  }, [dispatch, error, message]);
 
   if (isAuthenticated) {
-    return <Navigate to={"/"} />;
+    return <Navigate to="/" />;
   }
 
-  return;
-  <>
-    <div>
-      {/* {LESECTIONFT } */}
+  return (
+    <div className="min-h-screen flex flex-col md:flex-row">
+      {/* LEFT SECTION */}
       <div
-        className="hidden w-full md:w-1/2 bg-black text-white md:flex flex-col items-center justify-center
-      p-8 rounded-tr-[80px] rounded-br-[80px]"
+        className="hidden md:flex w-full md:w-1/2 bg-black text-white flex-col items-center justify-center
+        p-8 rounded-tr-[80px] rounded-br-[80px] relative"
       >
+        {/* Back Button (visible in dark section on md screens and above) */}
+        <Link
+          to="/login"
+          className="absolute top-5 left-5 text-white font-bold hover:text-gray-300 transition"
+        >
+          Back
+        </Link>
         <div className="text-center h-[450px]">
           <div className="flex justify-center mb-12">
             <img
@@ -55,22 +167,24 @@ const ForgotPassword = () => {
           </h3>
         </div>
       </div>
-      {/* {RIGHT SECTION} */}
+
+      {/* RIGHT SECTION */}
       <div className="w-full md:w-1/2 flex items-center justify-center bg-white p-8 relative">
+        {/* Back Button for small screens */}
         <Link
-          to={"/login"}
-          className="border-2 border-black rounded-3xl font-bold w-52 py-2 px-4 fixed top-10 -left-28 
-          hover:bg-black hover:text-white transition duration-300 text-end"
+          to="/login"
+          className="absolute top-5 left-5 text-black font-bold md:hidden hover:text-gray-700 transition"
         >
           Back
         </Link>
+
         <div className="w-full max-w-sm">
           <div className="flex justify-center mb-12">
             <div className="rounded-full flex items-center justify-center">
               <img src={logo} alt="logo" className="h-24 w-auto" />
             </div>
           </div>
-          <h1 className="text-4xl font-medium text-center mb-5 overflow-hidden">
+          <h1 className="text-4xl font-medium text-center mb-5 select-none overflow-hidden">
             Forgot Password
           </h1>
           <p className="text-gray-800 text-center mb-12">
@@ -80,6 +194,7 @@ const ForgotPassword = () => {
             <div className="mb-4">
               <input
                 type="email"
+                autoComplete="off"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -89,8 +204,8 @@ const ForgotPassword = () => {
             </div>
             <button
               type="submit"
-              className="border-2 mt-5 border-black w-full font-semibold bg-black text-white py-2 rounded-lg hover: bg-white hover:text-black transition"
-              disabled={loading ? true : false}
+              className="border-2 mt-5 border-black w-full font-semibold bg-black text-white py-2 rounded-lg hover:bg-white hover:text-black transition"
+              disabled={loading}
             >
               RESET PASSWORD
             </button>
@@ -98,7 +213,8 @@ const ForgotPassword = () => {
         </div>
       </div>
     </div>
-  </>;
+  );
 };
 
 export default ForgotPassword;
+

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllUsers } from "./store/slices/userSlice";
 import { fetchAllBooks } from "./store/slices/bookSlice";
 import { fetchAllBorrowedBooks, fetchUserBorrowedBooks } from "./store/slices/borrowSlice";
+import { getUser } from "./store/slices/authSlice";
 
 const App = () => {
   const { user, isAuthenticated } = useSelector((state) => state.auth);

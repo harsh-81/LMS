@@ -93,7 +93,7 @@ const AddBookPopup = () => {
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Book's Description"
                   rows={4}
-                  className="w-full px-4 py-2 borde-2 border-black rounded-md"
+                  className="w-full px-4 py-2 border-2 border-black rounded-md"
                 />
               </div>
               <div className="flex justify-end space-x-4">

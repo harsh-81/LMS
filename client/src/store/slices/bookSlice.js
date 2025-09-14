@@ -48,7 +48,7 @@ const bookSlice = createSlice({
 });
 
 export const fetchAllBooks = () => async (dispatch) => {
-  dispatch(bookSlice.actions.fetchBooksRequest());
+  dispatch(bookSlice.actions.fetchBookRequest());
   await axios
     .get("http://localhost:4000/api/v1/book/all", { withCredentials: true })
     .then((res) => {
@@ -65,11 +65,11 @@ export const addBook = (data) => async (dispatch) => {
     .post("http://localhost:4000/api/v1/book/admin/add", data, {
       withCredentials: true,
       headers: {
-        "Contet-Type": "application/json",
+        "Content-Type": "application/json",
       },
     })
     .then((res) => {
-      bookSlice.actions.addBookSuccess(res.data.message);
+      dispatch(bookSlice.actions.addBookSuccess(res.data.message));
       toast.success(res.data.message);
       dispatch(toggleAddBookPopup());
       dispatch(fetchAllBooks());

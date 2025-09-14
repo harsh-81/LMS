@@ -15,7 +15,7 @@ import {
 import Header from "../layout/Header";
 import AddBookPopup from "../popups/AddBookPopup"
 import ReadBookPopup from "../popups/ReadBookPopup"
-import RecordBookPopup from "../popups/ReadBookPopup"
+import RecordBookPopup from "../popups/RecordBookPopup"
 
 const BookManagement = () => {
   const dispatch = useDispatch();
@@ -81,15 +81,15 @@ const BookManagement = () => {
         {/* SUB HEADER */}
         <header className="flex flex-col gap-3 md:flex-row md:justify-between md:item-ceneter">
           <h2 className="text-xl font-medium md:text-2xl md:font-semibold">
-            user && user.role === "Admin" ? "Book Management" : "Books"
+            {user && user.role === "Admin" ? "Book Management" : "Books"}
           </h2>
           <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
             {isAuthenticated && user?.role === "Admin" && (
               <button
-                onClick={() => dispatch(toggleAddBookPopup)}
-                className="relative pl=14 w-full sm:w-52 flex gap-4 justify-center items-center py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800"
+                onClick={() => dispatch(toggleAddBookPopup())}
+                className="relative pl-14 w-full sm:w-52 flex gap-4 justify-center items-center py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800"
               >
-                <span className="bg-white flex jsutify-center items=center overflow-hidden rounded-full text-black w-[25xl] h-[25xl] text-[27px] absolute left-5">
+                <span className="bg-white flex justify-center items-center overflow-hidden rounded-full text-black w-[25px] h-[25px] text-[27px] absolute left-5">
                   +
                 </span>
                 Add Book

@@ -11,7 +11,7 @@ const ReturnBookPopup = ({bookId, email}) => {
     dispatch(toggleReturnBookPopup());
   }
 
-  return 
+  return (
   <>
   <div className="fixed inset-0 bg-black bg-opacity-50 p-5 flex items-center justify-center z-50">
         <div className="w-full bg-white rounded-lg shadow-lg md:w-1/3">
@@ -43,6 +43,7 @@ const ReturnBookPopup = ({bookId, email}) => {
         </div>
       </div>
   </>
+  );
 };
 
 export default ReturnBookPopup
